@@ -222,38 +222,41 @@ function setup(message:discordJs.Message) {
 
 function Commands(message:discordJs.Message) {
     var messageContent = message.content.toLowerCase()
-    if (messageContent.match("-kick")) {
+    if (messageContent.match(prefix + "kick")) {
         kick(message)
     }
-    else if (messageContent.match("-ban")) {
+    else if (messageContent.match(prefix + "ban")) {
         ban(message)
     }
-    else if (messageContent == "-help") {
+    else if (messageContent == prefix + "help") {
         helpCommand(message)
     }
-    else if (messageContent.match("-unban")) {
+    else if (messageContent.match(prefix + "unban")) {
         unban(message)
     }
-    else if (messageContent.match("-mute")) {
+    else if (messageContent.match(prefix + "mute")) {
         mute(message)
     }
-    else if (messageContent.match("-unmute")) {
+    else if (messageContent.match(prefix + "unmute")) {
         unmute(message)
     }
-    else if (messageContent == "-setup") {
+    else if (messageContent == prefix + "setup") {
         setup(message)
     }
-    else if (messageContent == "-setmute") {
+    else if (messageContent == prefix + "setmute") {
         setMute(message)
     }
-    else if (messageContent == "-play?") {
+    else if (messageContent == prefix + "play?") {
         message.channel.send("Does anyone want to play? <@!517696139320098819> <@567507887992078336> <@219021504334135296> <@717568547823419403> <@695518091706237051>. From <@"+ message.author.id + ">")
         message.delete()
     
     }
-    else if (messageContent == "-wow") {
+    else if (messageContent == prefix + "wow") {
         message.channel.send("w.o.w s.o c.o.o.l -<@" + message.author.id + ">")
         message.delete()
+    }
+    else if (messageContent.match( prefix +"prefix")) {
+
     }
 }
 
