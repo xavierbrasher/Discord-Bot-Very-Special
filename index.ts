@@ -194,7 +194,7 @@ function kick(message:discordJs.Message) {
 function setMute(message:discordJs.Message) {
     let {guild} = message
     let muteRole = guild.roles.cache.find(x => x.name == "MUTE")
-    if (!muteRole) return console.log("Do -config first to set it up")
+    if (!muteRole) return console.log("Do -setup first to set it up")
     const channel = message.channel as GuildChannel
     channel.permissionOverwrites.create(muteRole, { SEND_MESSAGES: false, READ_MESSAGE_HISTORY: true }) 
     sendCustomEmbedMessage("Mute is setup and ready on this channel 😃", "Mute", message)
@@ -210,7 +210,7 @@ function setup(message:discordJs.Message) {
         }
         else {
             console.log("DONT MAKE ROLE")
-            sendCustomEmbedMessage("Config is done and ready", "Config", message)
+            sendCustomEmbedMessage("Setup is done and ready", "Setup", message)
         }
     } catch {
         console.log("MAKE ROLE");
@@ -223,7 +223,7 @@ function setup(message:discordJs.Message) {
             "READ_MESSAGE_HISTORY" , "ADD_REACTIONS"
             ]
         })
-        sendCustomEmbedMessage("Config is done and ready", "Config", message)
+        sendCustomEmbedMessage("Setup is done and ready", "Setup", message)
     }
     
     
