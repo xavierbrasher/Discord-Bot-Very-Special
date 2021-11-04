@@ -335,9 +335,7 @@ function Commands(message:discordJs.Message) {
 client.on("messageCreate", (message)=>{
     console.log("Server: "+message.guild.name+ ", Channel: " +message.channel + ", Username: " + message.author.username+", Message: " + message.content);
 
-    if (message.content[0] == prefix) {
-        Commands(message)
-    }
+    if (message.content[0] == prefix) Commands(message)
 })
 
 client.login(process.env.TOKEN)
