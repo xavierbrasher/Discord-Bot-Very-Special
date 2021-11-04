@@ -2,7 +2,7 @@
   "name": "discord-bot-very-special",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "startTs" : "npx ts-node index.ts",
     "start" : "node index.js"
