@@ -229,6 +229,18 @@ function setup(message:discordJs.Message) {
     
 }
 
+function spam(message:discordJs.Message) {
+    try {
+        const target = message.mentions.users.first()
+        for (let i = 0; i < 10; i++) {
+            message.channel.send("<@"+target.id+">")
+        }
+    } catch {
+        message.channel.send("Error, syntax: -spam @SOMEONE")
+    }
+}
+
+
 function Commands(message:discordJs.Message) {
     var messageContent = message.content.toLowerCase()
     if (messageContent.match(prefix + "kick")) {
@@ -258,11 +270,13 @@ function Commands(message:discordJs.Message) {
     else if (messageContent == prefix + "play?") {
         message.channel.send("Does anyone want to play? <@!517696139320098819> <@567507887992078336> <@219021504334135296> <@717568547823419403> <@695518091706237051>. From <@"+ message.author.id + ">")
         message.delete()
-    
     }
     else if (messageContent == prefix + "wow") {
         message.channel.send("w.o.w s.o c.o.o.l -<@" + message.author.id + ">")
         message.delete()
+    }
+    else if (messageContent.match("-spam")) {
+        spam(message)
     }
 }
 
