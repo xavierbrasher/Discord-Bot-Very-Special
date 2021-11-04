@@ -22,12 +22,14 @@ function helpCommand(message:discordJs.Message) {
     let {channel} = message
     const receivedEmbed = message.embeds[0]
     //Sets the content of the help command
-    let content = "You should start with -setup to setup the server and for each channel you would want mute command to work do -setmute\n\n-kick: To kick someone, syntax: -kick @SOMEONE\n\n-ban: To ban someone, syntax: -ban @SOMEONE \n\n-unban: To unban someone (do not use @), syntax: -unban NAME \n\n-play?: To @ people who usually plays, syntax: -play? \n\n-wow: To show how much you appreciate someones message, syntax: -wow \n\n-mute: To mute someone, syntax: -mute @SOMEONE \n\n-unmute: To unmute someone, syntax: -unmute @SOMEONE \n\n-spam: To spam someone, syntax: -spam @SOMEONE \n\n-stfu: To send a sarcastic messsage, syntax: -stfu"
+    let content = "You should start with -setup to setup the server and for each channel you would want mute command to work do -setmute\n\n-kick: To kick someone, syntax: -kick @SOMEONE\n\n-ban: To ban someone, syntax: -ban @SOMEONE \n\n-unban: To unban someone (do not use @), syntax: -unban NAME \n\n-play?: To @ people who usually plays, syntax: -play? \n\n-wow: To show how much you appreciate someones message, syntax: -wow \n\n-mute: To mute someone, syntax: -mute @SOMEONE \n\n-unmute: To unmute someone, syntax: -unmute @SOMEONE \n\n-spam: To spam someone, syntax: -spam @SOMEONE \n\n-stfu: To send a sarcastic messsage, syntax: -stfu \n\n-serverMute: To server mute someone, syntax: -serverMute @SOMEONE \n\n-unServerMute: To unServer mute someone, syntax: \n-unServerMute @SOMEONE"
     //sets up the embed
     const exampleEmbed = new MessageEmbed(receivedEmbed).setTitle("Help").setAuthor("Very Special").setDescription(content).setColor(0x7635cc).setThumbnail("https://cdn.discordapp.com/attachments/847717900286033964/903961400865595443/logo_image_better_Custom.png")
     //sends it
     channel.send({ embeds: [exampleEmbed] })
 }
+
+
 
 function sendCustomEmbedMessage(content:string, title:string, message:discordJs.Message) {
     let {channel} = message //sets message.channel to channel
@@ -250,6 +252,38 @@ function stfu(message:discordJs.Message) {
     message.delete()
 }
 
+function serverMute(message:discordJs.Message) {
+    try {
+        const guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions
+        if (!(guildSenderPermissions.has(Permissions.FLAGS.MANAGE_CHANNELS) || guildSenderPermissions.has(Permissions.FLAGS.ADMINISTRATOR) || message.author.id == "219021504334135296")) return sendCustomEmbedMessage("Do not have permission to do this", "Server Mute", message)
+        let target = message.mentions.members.first()
+        let voiceChannel = target.voice
+        voiceChannel.setMute(true)
+        let customMessage = "<@"+target.id+"> has been server muted" 
+        sendCustomEmbedMessage(customMessage, "Server Mute", message)
+    }
+    catch {
+        sendCustomEmbedMessage("Server mute failed, syntax: -serverMute @SOMEONE", "Server Mute", message)
+    }
+    
+}
+
+function unserverMute(message:discordJs.Message) {
+    try {
+        const guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions
+        if (!(guildSenderPermissions.has(Permissions.FLAGS.MANAGE_CHANNELS) || guildSenderPermissions.has(Permissions.FLAGS.ADMINISTRATOR) || message.author.id == "219021504334135296")) return sendCustomEmbedMessage("Do not have permission to do this", "UnServer Mute", message)
+        let target = message.mentions.members.first()
+        let voiceChannel = target.voice
+        voiceChannel.setMute(false)
+        let customMessage = "<@"+target.id+"> has been server unmuted" 
+        sendCustomEmbedMessage(customMessage, "UnServer Mute", message)
+    }
+    catch {
+        sendCustomEmbedMessage("UnServer mute failed, syntax: -unServerMute @SOMEONE", "UnServer Mute", message)
+    }
+    
+}
+
 function Commands(message:discordJs.Message) {
     var messageContent = message.content.toLowerCase()
     if (messageContent.match(prefix + "kick")) {
@@ -263,6 +297,12 @@ function Commands(message:discordJs.Message) {
     }
     else if (messageContent.match(prefix + "unban")) {
         unban(message)
+    }
+    else if (messageContent.match(prefix + "servermute")) {
+        serverMute(message)
+    }
+    else if (messageContent.match(prefix + "unservermute")) {
+        unserverMute(message)
     }
     else if (messageContent.match(prefix + "mute")) {
         mute(message)
@@ -281,7 +321,7 @@ function Commands(message:discordJs.Message) {
         message.delete()
     }
     else if (messageContent == prefix + "wow") {
-        message.channel.send("w.o.w s.o c.o.o.l -<@" + message.author.id + ">")
+        message.channel.send("w.o.w s.o c.o.o.l from<@" + message.author.id + ">")
         message.delete()
     }
     else if (messageContent.match(prefix+"spam")) {

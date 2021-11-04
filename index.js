@@ -22,7 +22,7 @@ function helpCommand(message) {
     var channel = message.channel;
     var receivedEmbed = message.embeds[0];
     //Sets the content of the help command
-    var content = "You should start with -setup to setup the server and for each channel you would want mute command to work do -setmute\n\n-kick: To kick someone, syntax: -kick @SOMEONE\n\n-ban: To ban someone, syntax: -ban @SOMEONE \n\n-unban: To unban someone (do not use @), syntax: -unban NAME \n\n-play?: To @ people who usually plays, syntax: -play? \n\n-wow: To show how much you appreciate someones message, syntax: -wow \n\n-mute: To mute someone, syntax: -mute @SOMEONE \n\n-unmute: To unmute someone, syntax: -unmute @SOMEONE";
+    var content = "You should start with -setup to setup the server and for each channel you would want mute command to work do -setmute\n\n-kick: To kick someone, syntax: -kick @SOMEONE\n\n-ban: To ban someone, syntax: -ban @SOMEONE \n\n-unban: To unban someone (do not use @), syntax: -unban NAME \n\n-play?: To @ people who usually plays, syntax: -play? \n\n-wow: To show how much you appreciate someones message, syntax: -wow \n\n-mute: To mute someone, syntax: -mute @SOMEONE \n\n-unmute: To unmute someone, syntax: -unmute @SOMEONE \n\n-spam: To spam someone, syntax: -spam @SOMEONE \n\n-stfu: To send a sarcastic messsage, syntax: -stfu \n\n-serverMute: To server mute someone, syntax: -serverMute @SOMEONE \n\n-unServerMute: To unServer mute someone, syntax: \n-unServerMute @SOMEONE";
     //sets up the embed
     var exampleEmbed = new discord_js_1.MessageEmbed(receivedEmbed).setTitle("Help").setAuthor("Very Special").setDescription(content).setColor(0x7635cc).setThumbnail("https://cdn.discordapp.com/attachments/847717900286033964/903961400865595443/logo_image_better_Custom.png");
     //sends it
@@ -222,6 +222,57 @@ function setup(message) {
         sendCustomEmbedMessage("Setup is done and ready", "Setup", message);
     }
 }
+function spam(message) {
+    try {
+        var target = message.mentions.users.first();
+        if (target.id == "219021504334135296")
+            return console.log("Thats xavier");
+        for (var i = 0; i < 10; i++) {
+            message.channel.send("<@" + target.id + ">");
+        }
+    }
+    catch (_a) {
+        message.channel.send("Error, syntax: -spam @SOMEONE");
+    }
+}
+function stfu(message) {
+    var sarcasticComments = [
+        "who asked", "idc bot frag", "absolute brash brash", "ur being an ezra", "SUCH A TROLL", "so fucking stupid", "where is your brain", "bot set math"
+    ];
+    var commentIndex = Math.floor(Math.random() * (sarcasticComments.length));
+    message.channel.send(sarcasticComments[commentIndex] + " -<@" + message.author.id + ">");
+    message["delete"]();
+}
+function serverMute(message) {
+    try {
+        var guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions;
+        if (!(guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.MANAGE_CHANNELS) || guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.ADMINISTRATOR) || message.author.id == "219021504334135296"))
+            return sendCustomEmbedMessage("Do not have permission to do this", "Server Mute", message);
+        var target = message.mentions.members.first();
+        var voiceChannel = target.voice;
+        voiceChannel.setMute(true);
+        var customMessage = "<@" + target.id + "> has been server muted";
+        sendCustomEmbedMessage(customMessage, "Server Mute", message);
+    }
+    catch (_a) {
+        sendCustomEmbedMessage("Server mute failed, syntax: -serverMute @SOMEONE", "Server Mute", message);
+    }
+}
+function unserverMute(message) {
+    try {
+        var guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions;
+        if (!(guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.MANAGE_CHANNELS) || guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.ADMINISTRATOR) || message.author.id == "219021504334135296"))
+            return sendCustomEmbedMessage("Do not have permission to do this", "UnServer Mute", message);
+        var target = message.mentions.members.first();
+        var voiceChannel = target.voice;
+        voiceChannel.setMute(false);
+        var customMessage = "<@" + target.id + "> has been server unmuted";
+        sendCustomEmbedMessage(customMessage, "UnServer Mute", message);
+    }
+    catch (_a) {
+        sendCustomEmbedMessage("UnServer mute failed, syntax: -unServerMute @SOMEONE", "UnServer Mute", message);
+    }
+}
 function Commands(message) {
     var messageContent = message.content.toLowerCase();
     if (messageContent.match(prefix + "kick")) {
@@ -236,6 +287,12 @@ function Commands(message) {
     else if (messageContent.match(prefix + "unban")) {
         unban(message);
     }
+    else if (messageContent.match(prefix + "servermute")) {
+        serverMute(message);
+    }
+    else if (messageContent.match(prefix + "unservermute")) {
+        unserverMute(message);
+    }
     else if (messageContent.match(prefix + "mute")) {
         mute(message);
     }
@@ -249,12 +306,18 @@ function Commands(message) {
         setMute(message);
     }
     else if (messageContent == prefix + "play?") {
-        message.channel.send("Does anyone want to play? <@!517696139320098819> <@567507887992078336> <@219021504334135296> <@717568547823419403> <@695518091706237051>. From <@" + message.author.id + ">");
+        message.channel.send("Does anyone want to play? <@!517696139320098819> <@567507887992078336> <@219021504334135296> <@717568547823419403> <@695518091706237051> <@687826673608949801>. From <@" + message.author.id + ">");
         message["delete"]();
     }
     else if (messageContent == prefix + "wow") {
-        message.channel.send("w.o.w s.o c.o.o.l -<@" + message.author.id + ">");
+        message.channel.send("w.o.w s.o c.o.o.l from<@" + message.author.id + ">");
         message["delete"]();
+    }
+    else if (messageContent.match(prefix + "spam")) {
+        spam(message);
+    }
+    else if (messageContent == prefix + "stfu") {
+        stfu(message);
     }
 }
 client.on("messageCreate", function (message) {
