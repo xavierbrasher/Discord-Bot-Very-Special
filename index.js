@@ -1,4 +1,40 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 exports.__esModule = true;
 var discord_js_1 = require("discord.js");
 var dotenv_1 = require("dotenv");
@@ -71,10 +107,11 @@ function mute(message) {
 }
 function unmute(message) {
     try {
-        var mentions = message.mentions, guild = message.guild, author = message.author;
-        var MuteRole = guild.roles.cache.find(function (role) { return role.name === "MUTE"; });
-        var target = mentions.users.first();
-        var guildSenderPermissions = guild.members.cache.get(author.id).permissions;
+        var mentions = message.mentions, guild = message.guild, author = message.author; //sets mentions, guild, author
+        var MuteRole = guild.roles.cache.find(function (role) { return role.name === "MUTE"; }); //find the mute role
+        var target = mentions.users.first(); //gets target as discord.js user
+        var guildSenderPermissions = guild.members.cache.get(author.id).permissions; //gets the permissions of that user
+        //checks the permissions
         if (guildSenderPermissions.has([discord_js_1.Permissions.FLAGS.KICK_MEMBERS]) || guildSenderPermissions.has([discord_js_1.Permissions.FLAGS.BAN_MEMBERS]) || guildSenderPermissions.has([discord_js_1.Permissions.FLAGS.ADMINISTRATOR]) || author.id == "219021504334135296") {
             console.log("CAN MUTE");
         }
@@ -89,27 +126,32 @@ function unmute(message) {
             if (target.id == "219021504334135296")
                 return sendCustomEmbedMessage("THATS DADDY I CANT 😦😩", "Unmute", message);
             if (!(targetid == null)) {
+                //removes the mute role
                 targetid.roles.remove(MuteRole);
-                var thingyEmbed = 'Unmuted <@' + target.id + ">";
-                sendCustomEmbedMessage(thingyEmbed, "Unmute", message);
+                var thingyEmbed = 'Unmuted <@' + target.id + ">"; //gets message ready
+                sendCustomEmbedMessage(thingyEmbed, "Unmute", message); //sends custom unmute message
             }
         }
     }
     catch (_a) {
+        //checks for errors
         sendCustomEmbedMessage("Failed to unmute (Check permissions or Make sure it is right syntax -unmute @WHOEVER) or does not have the unmute role", "Mute", message);
         console.log("tried, failed");
     }
 }
 function unban(message) {
-    var messageContent = message.content;
+    var messageContent = message.content; //gets message content
     var partsOfMessage = "";
+    //gets the string after the 7th letter
     for (var i = 0; i < messageContent.length; i++) {
         if (i >= 7) {
             partsOfMessage += messageContent[i];
         }
     }
+    //logs the message
     console.log(partsOfMessage);
-    var guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions;
+    var guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions; //gets the permissions
+    //checks the permissions
     if (guildSenderPermissions.has([discord_js_1.Permissions.FLAGS.BAN_MEMBERS]) || guildSenderPermissions.has([discord_js_1.Permissions.FLAGS.ADMINISTRATOR]) || message.author.id == "219021504334135296") {
         console.log("CAN BAN");
     }
@@ -118,22 +160,25 @@ function unban(message) {
         return console.log("CANNOT");
     }
     try {
-        var UnBanTarget = client.users.cache.find(function (user) { return user.username == partsOfMessage; });
+        var UnBanTarget = client.users.cache.find(function (user) { return user.username == partsOfMessage; }); //gets target
+        //check if it exsists 
         if (!UnBanTarget)
             return sendCustomEmbedMessage("Unbanning Failed (Wrong syntax (-unban name) not @ or Cannot find user. Might have to manually unban", "Unban", message);
-        message.guild.members.unban(UnBanTarget);
+        message.guild.members.unban(UnBanTarget); //unbans the person
         var embedThingy = partsOfMessage + " has been unbanned";
         sendCustomEmbedMessage(embedThingy, "Unban", message);
     }
     catch (_a) {
+        //catch an error
         sendCustomEmbedMessage("Unbanning Failed (Wrong syntax (-unban name) not @ or Cannot find user. Might have to manually unban", "Unban", message);
     }
 }
 function ban(message) {
     try {
-        var mentions = message.mentions, author = message.author;
-        var target = mentions.users.first();
-        var guildSenderPermissions = message.guild.members.cache.get(author.id).permissions;
+        var mentions = message.mentions, author = message.author; //gets mentions, author
+        var target = mentions.users.first(); //gets target
+        var guildSenderPermissions = message.guild.members.cache.get(author.id).permissions; //gets permissions
+        //check if has the permissions
         if (guildSenderPermissions.has([discord_js_1.Permissions.FLAGS.BAN_MEMBERS]) || guildSenderPermissions.has([discord_js_1.Permissions.FLAGS.ADMINISTRATOR]) || author.id == "219021504334135296") {
             console.log("CAN BAN");
         }
@@ -142,27 +187,29 @@ function ban(message) {
             return console.log("CANNOT");
         }
         if (target) {
-            var targetid = message.guild.members.cache.get(target.id);
+            var targetid = message.guild.members.cache.get(target.id); //gets the guild member
             if (target.id == "219021504334135296")
                 return sendCustomEmbedMessage("THATS DADDY I CANT 😦😩", "Ban", message);
-            if (!(targetid == null)) {
+            if (!(targetid == null)) { //if targetid doesnt exsist
                 if (!targetid.bannable)
                     return sendCustomEmbedMessage("Failed to ban (Check permissions or Make sure it is right syntax -ban @WHOEVER)", "Ban", message);
-                targetid.ban();
+                targetid.ban(); //ban
                 var thingyEmbed = 'Banning <@' + target.id + ">";
-                sendCustomEmbedMessage(thingyEmbed, "Ban", message);
+                sendCustomEmbedMessage(thingyEmbed, "Ban", message); //responce message
             }
         }
     }
     catch (_a) {
+        //catchs error
         sendCustomEmbedMessage("Failed to ban (Check permissions or Make sure it is right syntax -ban @WHOEVER)", "Ban", message);
     }
 }
 function kick(message) {
     try {
-        var mentions = message.mentions, author = message.author;
-        var target = mentions.users.first();
-        var guildSenderPermissions = message.guild.members.cache.get(author.id).permissions;
+        var mentions = message.mentions, author = message.author; //gets mentions, author
+        var target = mentions.users.first(); //gets the first user mentioned
+        var guildSenderPermissions = message.guild.members.cache.get(author.id).permissions; //gets the permissions
+        //check the permissions
         if (guildSenderPermissions.has([discord_js_1.Permissions.FLAGS.KICK_MEMBERS]) || guildSenderPermissions.has([discord_js_1.Permissions.FLAGS.ADMINISTRATOR]) || author.id == "219021504334135296") {
             console.log("CAN KICK");
         }
@@ -171,36 +218,37 @@ function kick(message) {
             return console.log("CANNOT");
         }
         if (target) {
-            var targetid = message.guild.members.cache.get(target.id);
+            var targetid = message.guild.members.cache.get(target.id); //gets the target
             if (target.id == "219021504334135296")
                 return sendCustomEmbedMessage("THATS DADDY I CANT 😦😩", "Kick", message);
-            if (!(targetid == null)) {
+            if (!(targetid == null)) { //if it exisist
                 if (!targetid.kickable)
                     return sendCustomEmbedMessage("Failed to kick (Check permissions or Make sure it is right syntax -kick @WHOEVER)", "Kick", message);
-                targetid.kick();
+                targetid.kick(); //kicks
                 var thingyEmbed = 'Kicking <@' + target.id + ">";
-                sendCustomEmbedMessage(thingyEmbed, "Kick", message);
+                sendCustomEmbedMessage(thingyEmbed, "Kick", message); //responces
             }
         }
     }
     catch (_a) {
+        //catchs the error
         sendCustomEmbedMessage("Failed to kick (Check permissions or Make sure it is right syntax -kick @WHOEVER)", "Kick", message);
     }
 }
 function setMute(message) {
-    var guild = message.guild;
-    var muteRole = guild.roles.cache.find(function (x) { return x.name == "MUTE"; });
+    var guild = message.guild; //gets guild of the message
+    var muteRole = guild.roles.cache.find(function (x) { return x.name == "MUTE"; }); //finds mute role
     if (!muteRole)
-        return console.log("Do -setup first to set it up");
-    var channel = message.channel;
-    channel.permissionOverwrites.create(muteRole, { SEND_MESSAGES: false, READ_MESSAGE_HISTORY: true });
-    sendCustomEmbedMessage("Mute is setup and ready on this channel 😃", "Mute", message);
+        return console.log("Do -setup first to set it up"); //check if it exsists 
+    var channel = message.channel; //sets it as a GuildChannel
+    channel.permissionOverwrites.create(muteRole, { SEND_MESSAGES: false, READ_MESSAGE_HISTORY: true }); //changes the permissionOverwrites
+    sendCustomEmbedMessage("Mute is setup and ready on this channel 😃", "Mute", message); //sends custom message
 }
 function setup(message) {
-    var guild = message.guild, author = message.author, member = message.member;
+    var guild = message.guild, member = message.member; //gets guild, member
     try {
-        var muteRole = guild.roles.cache.find(function (x) { return x.name == "MUTE"; });
-        if (message.member.roles.cache.has(muteRole.id)) {
+        var muteRole = guild.roles.cache.find(function (x) { return x.name == "MUTE"; }); //tries to get role
+        if (member.roles.cache.has(muteRole.id)) { //check if the server has the role
             console.log("DONT MAKE ROLE");
         }
         else {
@@ -218,16 +266,16 @@ function setup(message) {
             permissions: [
                 "READ_MESSAGE_HISTORY", "ADD_REACTIONS"
             ]
-        });
+        }); //makses the role
         sendCustomEmbedMessage("Setup is done and ready", "Setup", message);
     }
 }
 function spam(message) {
     try {
-        var target = message.mentions.users.first();
+        var target = message.mentions.users.first(); //gets target
         if (target.id == "219021504334135296")
             return console.log("Thats xavier");
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 10; i++) { //spams it 10 times
             message.channel.send("<@" + target.id + ">");
         }
     }
@@ -239,42 +287,76 @@ function stfu(message) {
     var sarcasticComments = [
         "who asked", "idc bot frag", "absolute brash brash", "ur being an ezra", "SUCH A TROLL", "so fucking stupid", "where is your brain", "bot set math"
     ];
-    var commentIndex = Math.floor(Math.random() * (sarcasticComments.length));
-    message.channel.send(sarcasticComments[commentIndex] + " -<@" + message.author.id + ">");
+    var commentIndex = Math.floor(Math.random() * (sarcasticComments.length)); //randomly chooses 1
+    message.channel.send(sarcasticComments[commentIndex] + " from <@" + message.author.id + ">"); //sends it
     message["delete"]();
 }
 function serverMute(message) {
-    try {
-        var guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions;
-        if (!(guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.MANAGE_CHANNELS) || guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.ADMINISTRATOR) || message.author.id == "219021504334135296"))
-            return sendCustomEmbedMessage("Do not have permission to do this", "Server Mute", message);
-        var target = message.mentions.members.first();
-        var voiceChannel = target.voice;
-        voiceChannel.setMute(true);
-        var customMessage = "<@" + target.id + "> has been server muted";
-        sendCustomEmbedMessage(customMessage, "Server Mute", message);
-    }
-    catch (_a) {
-        sendCustomEmbedMessage("Server mute failed, syntax: -serverMute @SOMEONE", "Server Mute", message);
-    }
+    return __awaiter(this, void 0, void 0, function () {
+        var guildSenderPermissions, target, voiceChannel, customMessage, _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions //gets permissions
+                    ;
+                    //checks permissions
+                    if (!(guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.MANAGE_CHANNELS) || guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.ADMINISTRATOR) || message.author.id == "219021504334135296"))
+                        return [2 /*return*/, sendCustomEmbedMessage("Do not have permission to do this", "Server Mute", message)];
+                    target = message.mentions.members.first() //gets target
+                    ;
+                    voiceChannel = target.voice //gets the voice channel it is in
+                    ;
+                    return [4 /*yield*/, voiceChannel.setMute(true)]; //sets the mute
+                case 1:
+                    _b.sent(); //sets the mute
+                    customMessage = "<@" + target.id + "> has been server muted" //sets up the message
+                    ;
+                    sendCustomEmbedMessage(customMessage, "Server Mute", message); //sends the message
+                    return [3 /*break*/, 3];
+                case 2:
+                    _a = _b.sent();
+                    sendCustomEmbedMessage("Server mute failed, Must be in a voice channel, syntax: -serverMute @SOMEONE", "Server Mute", message); //sends catch message
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
 }
 function unserverMute(message) {
-    try {
-        var guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions;
-        if (!(guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.MANAGE_CHANNELS) || guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.ADMINISTRATOR) || message.author.id == "219021504334135296"))
-            return sendCustomEmbedMessage("Do not have permission to do this", "UnServer Mute", message);
-        var target = message.mentions.members.first();
-        var voiceChannel = target.voice;
-        voiceChannel.setMute(false);
-        var customMessage = "<@" + target.id + "> has been server unmuted";
-        sendCustomEmbedMessage(customMessage, "UnServer Mute", message);
-    }
-    catch (_a) {
-        sendCustomEmbedMessage("UnServer mute failed, syntax: -unServerMute @SOMEONE", "UnServer Mute", message);
-    }
+    return __awaiter(this, void 0, void 0, function () {
+        var guildSenderPermissions, target, voiceChannel, customMessage, _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    guildSenderPermissions = message.guild.members.cache.get(message.author.id).permissions //checks permissions
+                    ;
+                    if (!(guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.MANAGE_CHANNELS) || guildSenderPermissions.has(discord_js_1.Permissions.FLAGS.ADMINISTRATOR) || message.author.id == "219021504334135296"))
+                        return [2 /*return*/, sendCustomEmbedMessage("Do not have permission to do this", "UnServer Mute", message)];
+                    target = message.mentions.members.first() //gets target
+                    ;
+                    voiceChannel = target.voice //check voice channel
+                    ;
+                    return [4 /*yield*/, voiceChannel.setMute(false)]; //sets mute to false
+                case 1:
+                    _b.sent(); //sets mute to false
+                    customMessage = "<@" + target.id + "> has been server unmuted" //sets up message
+                    ;
+                    sendCustomEmbedMessage(customMessage, "UnServer Mute", message); //sends message
+                    return [3 /*break*/, 3];
+                case 2:
+                    _a = _b.sent();
+                    sendCustomEmbedMessage("UnServer mute failed, Must be in a voice channel, syntax: -unServerMute @SOMEONE", "UnServer Mute", message); //catches error
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
 }
 function Commands(message) {
-    var messageContent = message.content.toLowerCase();
+    var messageContent = message.content.toLowerCase(); //gets the content of message lower case
+    //check which one it is
     if (messageContent.match(prefix + "kick")) {
         kick(message);
     }
@@ -319,11 +401,13 @@ function Commands(message) {
     else if (messageContent == prefix + "stfu") {
         stfu(message);
     }
+    else if (messageContent == prefix + "id") {
+        console.log(message.author.id);
+    }
 }
 client.on("messageCreate", function (message) {
-    console.log("Server: " + message.guild.name + ", Channel: " + message.channel + ", Username: " + message.author.username + ", Message: " + message.content);
-    if (message.content[0] == prefix) {
-        Commands(message);
-    }
+    console.log("Server: " + message.guild.name + ", Channel: " + message.channel + ", Username: " + message.author.username + ", Message: " + message.content); //logs the message
+    if (message.content[0] == prefix)
+        Commands(message); //if the first letter = to prefix than run commands
 });
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN); //logs in with the token
