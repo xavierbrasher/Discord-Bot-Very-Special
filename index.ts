@@ -303,6 +303,9 @@ function Commands(message:discordJs.Message) {
     else if (messageContent.match(prefix + "ban")) {
         ban(message)
     }
+    else if (messageContent == prefix + "what") {
+        message.channel.send("https://cdn.discordapp.com/attachments/868111171222396992/906148880658362398/Z.png")
+    }
     else if (messageContent == prefix + "help") {
         helpCommand(message)
     }
