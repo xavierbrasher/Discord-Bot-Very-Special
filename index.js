@@ -323,6 +323,20 @@ function serverMute(message) {
         });
     });
 }
+function ray(message) {
+    var channel = message.channel, author = message.author;
+    try {
+        var receivedEmbed = message.embeds[0];
+        //Sets the author, title, colour, themnail and content
+        var exampleEmbed = new discord_js_1.MessageEmbed(receivedEmbed).setTitle("Ray").setAuthor("not ray").setColor(0x7635cc).setImage("https://cdn.discordapp.com/attachments/847717900286033964/912671362890477618/ray_perm_2_2.jpg").setThumbnail("https://cdn.discordapp.com/attachments/847717900286033964/903961400865595443/logo_image_better_Custom.png");
+        //Sends the embed in the channel
+        channel.send({ embeds: [exampleEmbed] });
+        channel.send("from <@" + author.id + ">");
+    }
+    catch (_a) {
+        channel.send("error occurred");
+    }
+}
 function unserverMute(message) {
     return __awaiter(this, void 0, void 0, function () {
         var guildSenderPermissions, target, voiceChannel, customMessage, _a;
@@ -374,6 +388,9 @@ function Commands(message) {
     }
     else if (messageContent.match(prefix + "servermute")) {
         serverMute(message);
+    }
+    else if (messageContent == prefix + "ray") {
+        ray(message);
     }
     else if (messageContent.match(prefix + "unservermute")) {
         unserverMute(message);
