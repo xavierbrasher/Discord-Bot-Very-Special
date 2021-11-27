@@ -337,6 +337,22 @@ function ray(message) {
         channel.send("error occurred");
     }
 }
+function raySpam(message) {
+    var channel = message.channel;
+    try {
+        var receivedEmbed = message.embeds[0];
+        //Sets the author, title, colour, themnail and content
+        var exampleEmbed = new discord_js_1.MessageEmbed(receivedEmbed).setTitle("Ray").setAuthor("not ray").setColor(0x7635cc).setImage("https://cdn.discordapp.com/attachments/847717900286033964/912671362890477618/ray_perm_2_2.jpg").setThumbnail("https://cdn.discordapp.com/attachments/847717900286033964/903961400865595443/logo_image_better_Custom.png");
+        //Sends the embed in the channel
+        message["delete"]();
+        for (var i = 0; i < 10; i++) {
+            channel.send({ embeds: [exampleEmbed] });
+        }
+    }
+    catch (_a) {
+        channel.send("error occurred");
+    }
+}
 function unserverMute(message) {
     return __awaiter(this, void 0, void 0, function () {
         var guildSenderPermissions, target, voiceChannel, customMessage, _a;
@@ -376,6 +392,9 @@ function Commands(message) {
     }
     else if (messageContent.match(prefix + "ban")) {
         ban(message);
+    }
+    else if (messageContent == prefix + "spam ray") {
+        raySpam(message);
     }
     else if (messageContent == prefix + "what") {
         message.channel.send("https://cdn.discordapp.com/attachments/868111171222396992/906148880658362398/Z.png");
