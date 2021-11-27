@@ -271,12 +271,13 @@ function setup(message) {
     }
 }
 function spam(message) {
+    var channel = message.channel;
     try {
         var target = message.mentions.users.first(); //gets target
         if (target.id == "219021504334135296")
             return console.log("Thats xavier");
         for (var i = 0; i < 10; i++) { //spams it 10 times
-            message.channel.send("<@" + target.id + ">");
+            channel.send("<@" + target.id + ">");
         }
     }
     catch (_a) {
