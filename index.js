@@ -38,6 +38,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var discord_js_1 = require("discord.js");
 var dotenv_1 = require("dotenv");
+var Pushover = require("node-pushover");
+var push = new Pushover({
+    token: "atek6f2pfkdcs4y3kypbfzgin9228i",
+    user: "u29gwjkdti1agvgnvrp6u2r5edpf4z"
+});
+push.send("Discord Server", "Discord Server is starting");
 dotenv_1.config();
 var prefix = "-";
 var client = new discord_js_1.Client({

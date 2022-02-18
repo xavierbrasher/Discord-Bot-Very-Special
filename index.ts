@@ -1,5 +1,11 @@
 import discordJs, {MessageEmbed, PermissionOverwriteOptions ,PermissionOverwriteManager, PermissionFlags ,BaseCommandInteraction, BaseManager, Guild, GuildBan, GuildBanManager, Intents, Message, Permissions, User, PermissionOverwrites, TextChannel, GuildChannel } from "discord.js"
 import dotenv from 'dotenv'
+const Pushover = require("node-pushover")
+var push = new Pushover({
+	token: "atek6f2pfkdcs4y3kypbfzgin9228i",
+	user: "u29gwjkdti1agvgnvrp6u2r5edpf4z"
+});
+push.send("Discord Server", "Discord Server is starting")
 dotenv.config()
 var prefix = "-"
 const client = new discordJs.Client({
