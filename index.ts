@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import discordJs, {MessageEmbed, PermissionOverwriteOptions ,PermissionOverwriteManager, PermissionFlags ,BaseCommandInteraction, BaseManager, Guild, GuildBan, GuildBanManager, Intents, Message, Permissions, User, PermissionOverwrites, TextChannel, GuildChannel } from "discord.js"
 import dotenv from 'dotenv'
 const Pushover = require("node-pushover")

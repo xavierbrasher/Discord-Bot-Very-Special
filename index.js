@@ -1,5 +1,24 @@
 #!/usr/bin/env node
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -36,18 +55,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var discord_js_1 = require("discord.js");
-var dotenv_1 = require("dotenv");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var discord_js_1 = __importStar(require("discord.js"));
+var dotenv_1 = __importDefault(require("dotenv"));
 var Pushover = require("node-pushover");
 var push = new Pushover({
     token: "atek6f2pfkdcs4y3kypbfzgin9228i",
     user: "u29gwjkdti1agvgnvrp6u2r5edpf4z"
 });
 push.send("Discord Server", "Discord Server is starting");
-dotenv_1.config();
+dotenv_1.default.config();
 var prefix = "-";
-var client = new discord_js_1.Client({
+var client = new discord_js_1.default.Client({
     //intents of what the bot does
     intents: [
         discord_js_1.Intents.FLAGS.GUILD_MESSAGES,
@@ -297,7 +319,7 @@ function stfu(message) {
     ];
     var commentIndex = Math.floor(Math.random() * (sarcasticComments.length)); //randomly chooses 1
     message.channel.send(sarcasticComments[commentIndex] + " from <@" + message.author.id + ">"); //sends it
-    message["delete"]();
+    message.delete();
 }
 function serverMute(message) {
     return __awaiter(this, void 0, void 0, function () {
@@ -339,7 +361,7 @@ function ray(message) {
         var exampleEmbed = new discord_js_1.MessageEmbed(receivedEmbed).setTitle("Ray").setAuthor("not ray").setColor(0x7635cc).setImage("https://cdn.discordapp.com/attachments/847717900286033964/912671362890477618/ray_perm_2_2.jpg").setThumbnail("https://cdn.discordapp.com/attachments/847717900286033964/903961400865595443/logo_image_better_Custom.png");
         //Sends the embed in the channel
         channel.send({ embeds: [exampleEmbed] });
-        message["delete"]();
+        message.delete();
     }
     catch (_a) {
         channel.send("error occurred");
@@ -352,7 +374,7 @@ function raySpam(message) {
         //Sets the author, title, colour, themnail and content
         var exampleEmbed = new discord_js_1.MessageEmbed(receivedEmbed).setTitle("Ray").setAuthor("not ray").setColor(0x7635cc).setImage("https://cdn.discordapp.com/attachments/847717900286033964/912671362890477618/ray_perm_2_2.jpg").setThumbnail("https://cdn.discordapp.com/attachments/847717900286033964/903961400865595443/logo_image_better_Custom.png");
         //Sends the embed in the channel
-        message["delete"]();
+        message.delete();
         for (var i = 0; i < 10; i++) {
             channel.send({ embeds: [exampleEmbed] });
         }
@@ -436,11 +458,11 @@ function Commands(message) {
     }
     else if (messageContent == prefix + "play?") {
         message.channel.send("Does anyone want to play? <@!517696139320098819> <@567507887992078336> <@219021504334135296> <@717568547823419403> <@695518091706237051> <@687826673608949801>. From <@" + message.author.id + ">");
-        message["delete"]();
+        message.delete();
     }
     else if (messageContent == prefix + "wow") {
         message.channel.send("w.o.w s.o c.o.o.l from<@" + message.author.id + ">");
-        message["delete"]();
+        message.delete();
     }
     else if (messageContent.match(prefix + "spam")) {
         spam(message);
