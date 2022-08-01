@@ -2,10 +2,12 @@
   "name": "discord-bot-very-special",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "startTs": "npx ts-node index.ts",
-    "start": "node index.js"
+    "start": "node output/build/index.js",
+    "build": "yarn tsc --outDir output/build/ && yarn tsc --outdir output/build/commands commands/*.ts && yarn tsc --outdir output/build/components/ components/*.ts ",
+    "dev": "yarn tsc --outDir output/dev/ && yarn tsc --outdir output/dev/commands commands/*.ts &&  yarn tsc --outdir output/dev/components/ components/*.ts && node output/dev/index.js",
+    "devTest": "nodemon --ext ts --exec yarn dev"
   },
   "keywords": [],
   "author": "",
@@ -13,9 +15,9 @@
   "dependencies": {
     "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
-    "node-pushover": "^1.0.0",
-    "package.json": "^2.0.1",
-    "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
