@@ -3,7 +3,11 @@ import * as discordJs from "discord.js"
 import { Intents } from "discord.js"
 import * as dotenv from 'dotenv'
 import Commands from "./commands"
+import sendPush from "./components/sendPush"
+
 dotenv.config()
+
+
 
 const client = new discordJs.Client({
     //intents of what the bot does
@@ -17,6 +21,7 @@ const client = new discordJs.Client({
 
 
 client.on("ready", ()=>{
+    sendPush(process.env.PUSHUSER, process.env.PUSHTOKEN, "Discord server is now online")
     //On the bot ready, the bot would log it going online
     console.log("Discord Bot Online 😃🎉")
     client.user.setActivity('for -help', { type: "WATCHING" }) //sets the activity for the bot
