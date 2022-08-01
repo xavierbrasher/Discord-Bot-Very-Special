@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "node output/build/index.js",
-    "build": "yarn tsc --outDir output/build/ index.ts || echo  Ignore the errors its discordjs's fault",
+    "build": "yarn tsc --outDir output/build/ index.ts || echo \"Ignore the errors its discordjs's fault\"",
     "buildAndRun": "yarn tsc --outDir output/dev/ index.ts && echo \"wait what?\" || echo Ignore the errors its discordjs's fault&& node output/dev/index.js",
     "dev": "nodemon --ext ts --exec yarn buildAndRun"
   },
