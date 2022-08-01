@@ -1,4 +1,4 @@
-import discordJs from "discord.js"
+import * as discordJs from "discord.js"
 import ban from "./ban"
 import helpCommand from "./helpCommand"
 import kick from "./kick"

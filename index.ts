@@ -1,6 +1,7 @@
 #!/usr/bin/node
-import discordJs, {Intents} from "discord.js"
-import dotenv from 'dotenv'
+import * as discordJs from "discord.js"
+import { Intents } from "discord.js"
+import * as dotenv from 'dotenv'
 import Commands from "./commands"
 dotenv.config()
 

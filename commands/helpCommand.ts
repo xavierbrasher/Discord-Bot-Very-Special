@@ -1,4 +1,5 @@
-import discordJs, { MessageEmbed } from "discord.js"
+import { MessageEmbed } from "discord.js"
+import * as discordJs from "discord.js"
 
 export default function helpCommand(message:discordJs.Message) {
     let {channel} = message

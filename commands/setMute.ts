@@ -1,5 +1,6 @@
-import discordJs, {GuildChannel} from "discord.js"
+import {GuildChannel} from "discord.js"
 import sendCustomEmbedMessage from "../components/sendCustomEmbedMessage"
+import * as discordJs from "discord.js"
 
 export default function setMute(message:discordJs.Message) {
     let {guild} = message //gets guild of the message

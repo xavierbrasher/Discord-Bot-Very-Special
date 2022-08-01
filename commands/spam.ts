@@ -1,4 +1,4 @@
-import discordJs from "discord.js"
+import * as discordJs from "discord.js"
 
 export default function spam(message:discordJs.Message) {
     let {channel} = message 

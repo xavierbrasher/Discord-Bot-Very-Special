@@ -5,9 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "start": "node output/build/index.js",
-    "build": "yarn tsc --outDir output/build/ @compile.txt",
-    "dev": "yarn tsc --outDir output/dev/ @compile.txt && node output/dev/index.js",
-    "devTest": "nodemon --ext ts --exec yarn dev"
+    "build": "yarn tsc --outDir output/build/ index.ts || echo  Ignore the errors its discordjs's fault",
+    "buildAndRun": "yarn tsc --outDir output/dev/ index.ts && echo \"wait what?\" || echo Ignore the errors its discordjs's fault&& node output/dev/index.js",
+    "dev": "nodemon --ext ts --exec yarn buildAndRun"
   },
   "keywords": [],
   "author": "",

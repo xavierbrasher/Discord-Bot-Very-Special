@@ -1,5 +1,6 @@
 import sendCustomEmbedMessage from "../components/sendCustomEmbedMessage"
-import discordJs, { Permissions } from "discord.js"
+import { Permissions } from "discord.js"
+import * as discordJs from "discord.js"
 
 export default function unban(message:discordJs.Message, client: discordJs.Client) {
     var messageContent = message.content //gets message content

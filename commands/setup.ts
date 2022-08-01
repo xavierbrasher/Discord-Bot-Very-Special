@@ -1,4 +1,4 @@
-import discordJs from "discord.js"
+import * as discordJs from "discord.js"
 import sendCustomEmbedMessage from "../components/sendCustomEmbedMessage"
 
 export default function setup(message:discordJs.Message) {

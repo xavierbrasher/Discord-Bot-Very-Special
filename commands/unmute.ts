@@ -1,6 +1,6 @@
 import sendCustomEmbedMessage from "../components/sendCustomEmbedMessage";
-import discordJs, {Permissions} from "discord.js"
-
+import {Permissions} from "discord.js"
+import * as discordJs from "discord.js"
 
 export default function unmute(message:discordJs.Message) {
     try {
