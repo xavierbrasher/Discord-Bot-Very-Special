@@ -5,8 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "start": "node output/build/index.js",
-    "build": "yarn tsc --outDir output/build/ && yarn tsc --outdir output/build/commands commands/*.ts && yarn tsc --outdir output/build/components/ components/*.ts ",
-    "dev": "yarn tsc --outDir output/dev/ && yarn tsc --outdir output/dev/commands commands/*.ts &&  yarn tsc --outdir output/dev/components/ components/*.ts && node output/dev/index.js",
+    "build": "yarn tsc --outDir output/build/ @compile.txt",
+    "dev": "yarn tsc --outDir output/dev/ @compile.txt && node output/dev/index.js",
     "devTest": "nodemon --ext ts --exec yarn dev"
   },
   "keywords": [],

@@ -1,0 +1,18 @@
+--model amd
+commands/ban.ts
+commands/helpCommand.ts
+commands/index.ts
+commands/kick.ts
+commands/mute.ts
+commands/ray.ts
+commands/raySpam.ts
+commands/servermute.ts
+commands/setMute.ts
+commands/setup.ts
+commands/spam.ts
+commands/stfu.ts
+commands/unban.ts
+commands/unmute.ts
+commands/unservermute.ts
+components/sendCustomEmbedMessages.ts
+index.ts
