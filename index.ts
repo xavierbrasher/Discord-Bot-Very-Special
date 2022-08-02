@@ -4,11 +4,24 @@ import { Intents } from "discord.js"
 import * as dotenv from 'dotenv'
 import Commands from "./commands"
 import sendPush from "./components/sendPush"
+const express = require('express')
+const port = 8080
+export default function start() {
+  const server = express()
+
+  server.all('*', (req, res) => {
+    res.send("Its Just a DigitalOcean Check");
+  })
+
+  server.listen(port, (err) => {
+    if (err) throw err 
+  })
+}
 
 dotenv.config()
 
 
-
+start()
 const client = new discordJs.Client({
     //intents of what the bot does
     intents:[
@@ -28,7 +41,7 @@ client.on("ready", ()=>{
 })
 
 client.on("messageCreate", (message)=>{
-    console.log("Server: "+message.guild.name+ ", Channel: " +message.channel + ", Username: " + message.author.username+", Message: " + message.content); //logs the message
+    //console.log("Server: "+message.guild.name+ ", Channel: " +message.channel + ", Username: " + message.author.username+", Message: " + message.content); //logs the message
 
     if (message.content[0] == "-") Commands(message, client) //if the first letter = to prefix than run commands
 })
