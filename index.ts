@@ -1,10 +1,13 @@
 #!/usr/bin/node
 import * as discordJs from "discord.js";
 import { Intents } from "discord.js";
+import * as dotenv from "dotenv";
 import Commands from "./commands";
 import sendPush from "./components/sendPush";
 const express = require("express");
 const port = 8080;
+
+dotenv.config();
 
 export default function start() {
     const server = express();
