@@ -13,7 +13,7 @@ export default function start() {
     const server = express();
 
     server.all("*", (req, res) => {
-        res.redirect("https://www.xavxavier.com/discord");
+        res.redirect("https://www.xavxavier.com/portfolio/discord-bot");
     });
 
     server.listen(port, (err) => {
