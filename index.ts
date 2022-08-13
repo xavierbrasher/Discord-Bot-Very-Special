@@ -32,11 +32,13 @@ const client = new discordJs.Client({
 });
 
 client.on("ready", () => {
-    sendPush(
-        process.env.PUSHUSER,
-        process.env.PUSHTOKEN,
-        "Discord server is now online"
-    );
+    if (process.env.PUSH == "1") {
+        sendPush(
+            process.env.PUSHUSER,
+            process.env.PUSHTOKEN,
+            "Discord server is now online"
+        );
+    }
     //On the bot ready, the bot would log it going online
     start();
     console.log("Discord Bot Online 😃🎉");
