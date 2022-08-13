@@ -21,8 +21,8 @@ Its as simple as 1, 2, 3.
 You need to make a .env file and it has to have some params
 
 ```
-TOKEN:<Discord API Token>
-PUSH:<A choose If You use Pushover, 0 for no, 1 for yes>
-PUSHTOKEN:<Pushover Token>
-PUSHUSER:<Pushover User Token>
+TOKEN=<Discord API Token>
+PUSH=<A choose If You use Pushover, 0 for no, 1 for yes>
+PUSHTOKEN=<Pushover Token>
+PUSHUSER=<Pushover User Token>
 ```
