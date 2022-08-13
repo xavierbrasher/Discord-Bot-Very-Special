@@ -13,7 +13,7 @@ export default function start() {
     const server = express();
 
     server.all("*", (req, res) => {
-        res.send("This is just a digital ocean check ��");
+        res.send("This is just a digital ocean check :)");
     });
 
     server.listen(port, (err) => {
